@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "what-ris"
+version = "0.1.0"
+description = "Iris flower identification service"
+authors = ["Alex Ward <alxwrd@googlemail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.70.0"
+uvicorn = {extras = ["standard"], version = "^0.15.0"}
+scikit-learn = "^0.19.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+requests = "^2.26.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
