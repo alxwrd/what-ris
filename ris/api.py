@@ -20,3 +20,13 @@ def div_numbers(a: Optional[int] = None, b: Optional[int] = None):
         raise HTTPException(status_code=422, detail="cannot divide by zero")
 
     return {"result": a / b}
+
+
+@app.get("/predict")
+def predict_iris(
+    sepal_length: Optional[float] = 0.0,
+    sepal_width: Optional[float] = 0.0,
+    petal_length: Optional[float] = 0.0,
+    petal_width: Optional[float] = 0.0,
+):
+    return {"result": "setosa"}
