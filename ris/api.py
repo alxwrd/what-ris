@@ -3,8 +3,7 @@ from typing import Optional, List, Union
 
 from fastapi import FastAPI, HTTPException, Depends
 
-from ris.schemas.iris import IrisData
-from ris.services.iris import IrisPredictor
+from ris.schemas.iris import IrisData, IrisResponse
 from ris.services.iris import iris_predictor, IrisPredictor
 
 app = FastAPI()
@@ -26,7 +25,7 @@ def div_numbers(a: Optional[int] = None, b: Optional[int] = None):
     return {"result": a / b}
 
 
-@app.post("/predict")
+@app.post("/predict", response_model=IrisResponse)
 def predict_iris(
     iris: Union[IrisData, List[IrisData]],
     predictor: IrisPredictor = Depends(iris_predictor)
