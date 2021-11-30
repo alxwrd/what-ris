@@ -32,3 +32,18 @@ def iris_test_data(request):
         "class": request.param[0],
         "features": request.param[1]
     }
+
+
+@pytest.fixture
+def all_validation_classes():
+    return validation_classes
+
+
+@pytest.fixture
+def all_validation_features():
+    return validation_features
+
+
+@pytest.fixture
+def all_validation(all_validation_classes, all_validation_features):
+    return zip(all_validation_classes, all_validation_features)
