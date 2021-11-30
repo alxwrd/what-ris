@@ -6,9 +6,11 @@ authors = ["Alex Ward <alxwrd@googlemail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "3.8"
 fastapi = "^0.70.0"
 uvicorn = {extras = ["standard"], version = "^0.15.0"}
+numpy = "^1.21.4"
+scipy = "^1.7.3"
 scikit-learn = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
