@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException, Depends
 
 from ris.schemas.iris import IrisData
 from ris.services.iris import IrisPredictor
+from ris.services.iris import iris_predictor, IrisPredictor
 
 app = FastAPI()
 
@@ -28,7 +29,7 @@ def div_numbers(a: Optional[int] = None, b: Optional[int] = None):
 @app.post("/predict")
 def predict_iris(
     iris: Union[IrisData, List[IrisData]],
-    predictor: IrisPredictor = Depends(IrisPredictor)
+    predictor: IrisPredictor = Depends(iris_predictor)
 ):
     if isinstance(iris, IrisData):
         iris = [iris]

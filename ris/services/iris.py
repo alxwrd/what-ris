@@ -23,6 +23,9 @@ class IrisPredictor:
                 warnings.simplefilter("ignore", category=UserWarning)
                 self.model = pickle.load(f)
 
+    def __call__(self):
+        return self
+
     def predict(self, data: List[IrisData]):
         data_for_model = [
             [
@@ -36,3 +39,6 @@ class IrisPredictor:
         return [
             self.names[prediction] for prediction in self.model.predict(data_for_model)
         ]
+
+
+iris_predictor = IrisPredictor()
