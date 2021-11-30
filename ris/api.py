@@ -1,7 +1,10 @@
 
-from typing import Optional
+from typing import Optional, List, Union
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
+
+from ris.schemas.iris import IrisData
+from ris.services.iris import IrisPredictor
 
 app = FastAPI()
 
@@ -22,11 +25,12 @@ def div_numbers(a: Optional[int] = None, b: Optional[int] = None):
     return {"result": a / b}
 
 
-@app.get("/predict")
+@app.post("/predict")
 def predict_iris(
-    sepal_length: Optional[float] = 0.0,
-    sepal_width: Optional[float] = 0.0,
-    petal_length: Optional[float] = 0.0,
-    petal_width: Optional[float] = 0.0,
+    iris: Union[IrisData, List[IrisData]],
+    predictor: IrisPredictor = Depends(IrisPredictor)
 ):
-    return {"result": "setosa"}
+    if isinstance(iris, IrisData):
+        iris = [iris]
+
+    return {"result": predictor.predict(iris)}
