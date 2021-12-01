@@ -4,12 +4,21 @@ WORKDIR /app
 
 LABEL maintainer="Alex Ward <alxwrd@googlemai.com>"
 
-RUN curl -sSL https://install.python-poetry.org | python3 -
-
 COPY ./pyproject.toml /app/pyproject.toml
 
-RUN poetry install --no-dev
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/etc/poetry python3 -
+
+ENV PATH="/etc/poetry/bin:${PATH}"
+
+RUN poetry --version
+RUN poetry config virtualenvs.create false && \
+    python -m pip install numpy==1.21.4 && \
+    python -m pip install scipy==1.7.3 && \
+    poetry install --no-dev
 
 COPY ./ris /app/ris
 
-CMD ["uvicorn", "ris.api:app", "--host", "0.0.0.0", "--port", "80"]
+ENV PORT=8080
+EXPOSE $PORT
+
+CMD ["sh", "-c", "uvicorn ris.api:app --host 0.0.0.0 --port $PORT"]

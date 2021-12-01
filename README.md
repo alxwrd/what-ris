@@ -37,3 +37,10 @@ tests\test_predict.py ..............................................
 
 Endpoints are self documenting thanks to FastAPI. After you've started the
 application locally, simply visit http://localhost:8000/docs.
+
+
+## Deployment
+
+Deployed to Google Cloud Platform using:
+  - [Container Registry](https://cloud.google.com/container-registry)
+  - [Cloud Run](https://cloud.google.com/run)
