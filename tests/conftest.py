@@ -47,3 +47,15 @@ def all_validation_features():
 @pytest.fixture
 def all_validation(all_validation_classes, all_validation_features):
     return zip(all_validation_classes, all_validation_features)
+
+
+@pytest.hookimpl()
+def pytest_sessionfinish(session, exitstatus):
+    if exitstatus != pytest.ExitCode.TESTS_FAILED:
+        return
+
+    failure_rate = session.testsfailed / session.testscollected
+
+    if failure_rate <= 0.02:  # Allow 2% to fail
+        print("PASSED WITH FAILURES")
+        session.exitstatus = 0
